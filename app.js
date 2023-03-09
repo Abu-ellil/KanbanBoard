@@ -94,14 +94,15 @@ function delEditBtns() {
       currr.remove();
       let ID = currr.getAttribute("data-id");
       console.log(JSON.parse(localStorage.getItem("not")));
-   notStrTasks = JSON.parse(localStorage.getItem("not"));
-   const containerrs = document.querySelectorAll(".list-container");
+      notStrTasks = JSON.parse(localStorage.getItem("not"));
+      const containerrs = document.querySelectorAll(".list-container");
 
-      containerrs.forEach((cont)=>{
-        if(cont.classList.contains("notst")){
-          deleteTaskWithnot(e.target.parentElement.parentElement.getAttribute("data-id"));
-        }
-        else if (cont.classList.contains("inpro")) {
+      containerrs.forEach((cont) => {
+        if (cont.classList.contains("notst")) {
+          deleteTaskWithnot(
+            e.target.parentElement.parentElement.getAttribute("data-id")
+          );
+        } else if (cont.classList.contains("inpro")) {
           deleteTaskWithinpr(
             e.target.parentElement.parentElement.getAttribute("data-id")
           );
@@ -111,15 +112,7 @@ function delEditBtns() {
             e.target.parentElement.parentElement.getAttribute("data-id")
           );
         }
-    
-      })
-
-  //  console.log(e.target.parentElement.parentElement);
-      // if()
-    
-
-
-
+      });
     });
   });
 }
@@ -208,18 +201,17 @@ function save() {
   addDataToLocal(completedTasks, "comp");
 }
 
-
-function deleteTaskWithnot(taskId){
+function deleteTaskWithnot(taskId) {
   notStrTasks = notStrTasks.filter((task) => task.id != taskId);
-  save()
+  save();
 }
 
-function deleteTaskWithinpr(taskId){
+function deleteTaskWithinpr(taskId) {
   inProgTasks = inProgTasks.filter((task) => task.id != taskId);
-  save()
+  save();
 }
 
-function deleteTaskWith(taskId){
+function deleteTaskWith(taskId) {
   completedTasks = completedTasks.filter((task) => task.id != taskId);
-  save()
+  save();
 }
