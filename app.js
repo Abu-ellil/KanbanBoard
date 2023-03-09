@@ -15,8 +15,7 @@ let completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
 */
 }
 
-JSON.parse(localStorage.getItem("inpro")).slice(1,1)
-save();
+
 
 let toDo = {
   id: randNum(),
