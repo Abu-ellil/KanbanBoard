@@ -15,6 +15,9 @@ let completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
 */
 }
 
+JSON.parse(localStorage.getItem("inpro")).slice(1,1)
+save();
+
 let toDo = {
   id: randNum(),
   text: "New Task",
@@ -75,7 +78,7 @@ btnNotSt.addEventListener("click", () => {
   creatItem(notStartList, toDo);
   dragItems();
   delEditBtns();
-  addDataToLocal(notStrTasks, "not");
+  save()
 });
 btnInPro.addEventListener("click", () => {
   inProgTasks.push(toDo);
@@ -83,15 +86,15 @@ btnInPro.addEventListener("click", () => {
   dragItems();
   delEditBtns();
 
-  addDataToLocal(inProgTasks, "inpro");
+  save()
 });
 btnCom.addEventListener("click", () => {
   completedTasks.push(toDo);
   creatItem(completedtList, toDo);
   dragItems();
   delEditBtns();
-
-  addDataToLocal(completedTasks, "comp");
+save()
+  
 });
 //////////EDITE AND DELETE BUTTONS//////////
 
@@ -106,9 +109,7 @@ function delEditBtns() {
       current.setAttribute("contenteditable", "true");
       current.focus();
       dragItems();
-      addDataToLocal(notStrTasks, "not");
-      addDataToLocal(inProgTasks, "inpro");
-      addDataToLocal(completedTasks, "comp");
+     
     });
   });
 
@@ -145,9 +146,11 @@ function dragItems() {
     draggable.addEventListener("dragend", () => {
       draggable.classList.remove("dragging");
       draggable.classList.remove("dragover");
+      save()
     });
     draggable.addEventListener("dragleave", () => {
       draggable.classList.remove("dragover");
+      save()
     });
   });
 
@@ -206,10 +209,13 @@ getData(notStrTasks, notStartList);
 getData(completedTasks, completedtList);
 getData(inProgTasks, inProgList);
 
-addDataToLocal(notStrTasks, "not");
-addDataToLocal(inProgTasks, "inpro");
-addDataToLocal(completedTasks, "comp");
 
 getDataFromLocal("not");
 getDataFromLocal("inpro");
 getDataFromLocal("comp");
+
+function save(){
+  addDataToLocal(notStrTasks, "not");
+  addDataToLocal(inProgTasks, "inpro");
+  addDataToLocal(completedTasks, "comp");
+}

@@ -7,26 +7,21 @@
   font-family: "Cairo", sans-serif;
   /* overflow: hidden; */
   font-size: 25px;
+   /* transition: all 0.5s; */
 }
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #009575;
+  background: #02b38c;
 }
 .main {
   display: flex;
-  /* align-items: flex-start;
-  justify-content: flex-start;
-width: 70%;  */
   gap: 40px;
 }
 .box {
-  
-  /* display: flex;
-  flex-direction: column;
-  gap: 10px; */
+  transition: all 0.3s;
 }
 .title {
   color: #fff;
@@ -38,7 +33,8 @@ width: 70%;  */
   display: flex;
   flex-direction: column;
   width: 350px;
-  gap: 30px;
+  gap: 20px;
+  padding-bottom: 44px;
 }
 .item {
   background-color: #fff;
@@ -50,7 +46,7 @@ width: 70%;  */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s;
+  /* box-shadow:0 0 20px #027560; */
 }
 .container {
   box-shadow: 0 0px 12px #33333370;
@@ -88,18 +84,6 @@ button {
   border: none;
   cursor: pointer;
 }
-
-/* .item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 1.5rem;
-	border-radius: 1rem;
-	background-color: #1e223d;
-	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-	margin-bottom: 1.5rem;
-} */
-
 .item:hover,
 .item:focus-within {
   outline: 2px solid #fff;
@@ -125,21 +109,21 @@ button {
 }
 
 .dragover {
-  transform: translateY(20px);
+  transform: translateY(-10px);
 }
 
 .task.draggable {
   opacity: 0.3;
 }
 
-.dragover::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
+.dragover {
+  
+box-shadow: 0px 30px 0px #027560;
+  /* bottom: -15px;
   left: 0;
   width: 100%;
-  height: 15px;
-  background-color: #027560;
+  height: 50px;
+  background-color: #027560; */
 }
 
 /* *********Small Screens******** */
