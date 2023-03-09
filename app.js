@@ -22,7 +22,14 @@ function displayData(arr, lst) {
     delEditBtns();
   });
 }
+///RESET Local
+const resetBtn = document.querySelector("#reset-btn");
 
+resetBtn.addEventListener("click", () => {
+  localStorage.clear();
+  // Reload the page after clearing local storage
+  location.reload();
+});
 //////CREATE RANDOM NUMBER/////
 
 function randNum() {
@@ -77,40 +84,59 @@ btnCom.addEventListener("click", () => {
 function delEditBtns() {
   const btnDel = document.querySelectorAll(".remove-btn");
   const btnEdt = document.querySelectorAll(".edit");
-  //////EDIT
   btnEdt.forEach((btnE) => {
     btnE.addEventListener("click", (e) => {
       const current =
         e.target.parentElement.parentElement.querySelector(".itemEel");
       current.setAttribute("contenteditable", "true");
       current.focus();
-      dragItems();
+      // Save the updated task when pressing enter key
+      current.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const updatedText = current.textContent.trim();
+          const taskId =
+            e.target.parentElement.parentElement.getAttribute("data-id");
+          const containers = document.querySelectorAll(".list-container");
+          containers.forEach((container) => {
+            const arr = container.classList.contains("notst")
+              ? notStrTasks
+              : container.classList.contains("inpro")
+              ? inProgTasks
+              : completedTasks;
+            const task = arr.find((t) => t.id === Number(taskId));
+            if (task) {
+              task.text = updatedText;
+              addDataToLocal(notStrTasks, "not");
+              addDataToLocal(inProgTasks, "inpro");
+              addDataToLocal(completedTasks, "comp");
+            }
+          });
+          current.setAttribute("contenteditable", "false");
+        }
+      });
     });
   });
-  /////DELETE
   btnDel.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      currr = e.target.parentElement.parentElement;
+      const currr = e.target.parentElement.parentElement;
       currr.remove();
-      let ID = currr.getAttribute("data-id");
-      console.log(JSON.parse(localStorage.getItem("not")));
-      notStrTasks = JSON.parse(localStorage.getItem("not"));
-      const containerrs = document.querySelectorAll(".list-container");
-
-      containerrs.forEach((cont) => {
-        if (cont.classList.contains("notst")) {
-          deleteTaskWithnot(
-            e.target.parentElement.parentElement.getAttribute("data-id")
-          );
-        } else if (cont.classList.contains("inpro")) {
-          deleteTaskWithinpr(
-            e.target.parentElement.parentElement.getAttribute("data-id")
-          );
-        }
-        if (cont.classList.contains("com")) {
-          deleteTaskWith(
-            e.target.parentElement.parentElement.getAttribute("data-id")
-          );
+      const taskId = currr.getAttribute("data-id");
+      notStrTasks = JSON.parse(localStorage.getItem("not")) || [];
+      inProgTasks = JSON.parse(localStorage.getItem("inpro")) || [];
+      completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
+      const containers = document.querySelectorAll(".list-container");
+      containers.forEach((container) => {
+        const arr = container.classList.contains("notst")
+          ? notStrTasks
+          : container.classList.contains("inpro")
+          ? inProgTasks
+          : completedTasks;
+        const index = arr.findIndex((t) => t.id === Number(taskId));
+        if (index > -1) {
+          arr.splice(index, 1);
+          addDataToLocal(notStrTasks, "not");
+          addDataToLocal(inProgTasks, "inpro");
+          addDataToLocal(completedTasks, "comp");
         }
       });
     });
@@ -122,20 +148,51 @@ function delEditBtns() {
 function dragItems() {
   const draggables = document.querySelectorAll(".draggable");
   const containers = document.querySelectorAll(".list-container");
+
   draggables.forEach((draggable) => {
     draggable.addEventListener("dragstart", (e) => {
       draggable.classList.add("dragging");
     });
+
     draggable.addEventListener("dragend", () => {
       draggable.classList.remove("dragging");
       draggable.classList.remove("dragover");
-      save();
-    });
-    draggable.addEventListener("dragleave", () => {
-      draggable.classList.remove("dragover");
+
+      // Update the array based on the new order of the tasks
+      containers.forEach((container) => {
+        let arr = [];
+        const className = container.classList[1];
+        if (className === "notst") {
+          arr = notStrTasks;
+        } else if (className === "inpro") {
+          arr = inProgTasks;
+        } else if (className === "com") {
+          arr = completedTasks;
+        }
+
+        const ids = [...container.querySelectorAll(".draggable")].map((d) =>
+          Number(d.getAttribute("data-id"))
+        );
+        const newOrder = ids.map((id) => arr.find((t) => t.id === id));
+
+        // Update the corresponding array with the new order of tasks
+        if (className === "notst") {
+          notStrTasks = newOrder;
+          addDataToLocal(notStrTasks, "not");
+        } else if (className === "inpro") {
+          inProgTasks = newOrder;
+          addDataToLocal(inProgTasks, "inpro");
+        } else if (className === "com") {
+          completedTasks = newOrder;
+          addDataToLocal(completedTasks, "comp");
+        }
+      });
+
+      // Save the updated order of tasks to local storage
       save();
     });
   });
+
   containers.forEach((container) => {
     container.addEventListener("dragover", (e) => {
       e.preventDefault();
