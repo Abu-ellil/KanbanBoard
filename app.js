@@ -9,21 +9,13 @@ let notStrTasks = JSON.parse(localStorage.getItem("not")) || [];
 let inProgTasks = JSON.parse(localStorage.getItem("inpro")) || [];
 let completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
 
-{
-  /* 
-       <div class="draggable item" draggable="true"><div class="item">CONTENT HERE</div><div class="actions"><button class="material-icons edit">edit</button><button class="material-icons remove-btn">remove_circle</button></div></div>
-*/
-}
-
-
-
 let toDo = {
   id: randNum(),
   text: "New Task",
 };
 
 // //////////FUNCTIONS START/////////
-function getData(arr, lst) {
+function displayData(arr, lst) {
   arr.forEach((itm) => {
     creatItem(lst, itm);
     dragItems();
@@ -47,7 +39,71 @@ function getDataFromLocal(kyy) {
     let kyy = JSON.parse(data);
   }
 }
+//////////CREATEDELEMENT/////////
+{
+  /* 
+       <div class="draggable item" draggable="true"><div class="item">CONTENT HERE</div><div class="actions"><button class="material-icons edit">edit</button><button class="material-icons remove-btn">remove_circle</button></div></div>
+*/
+}
+function creatItem(plac, dta) {
+  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}{" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button   onclick="deleteTask('${dta.id}')"  class="material-icons remove-btn">remove_circle</button></div></div>`;
+}
+//////////CREATEDELEMENT/////////
+//////////FUNCTIONS END/////////
+//////////EVENTS START/////////
+btnNotSt.addEventListener("click", () => {
+  notStrTasks.push(toDo);
+  creatItem(notStartList, toDo);
+  dragItems();
+  delEditBtns();
+  save();
+});
+btnInPro.addEventListener("click", () => {
+  inProgTasks.push(toDo);
+  creatItem(inProgList, toDo);
+  dragItems();
+  delEditBtns();
 
+  save();
+});
+btnCom.addEventListener("click", () => {
+  completedTasks.push(toDo);
+  creatItem(completedtList, toDo);
+  dragItems();
+  delEditBtns();
+  save();
+});
+//////////EDITE AND DELETE BUTTONS//////////
+function delEditBtns() {
+  const btnDel = document.querySelectorAll(".remove-btn");
+  const btnEdt = document.querySelectorAll(".edit");
+  //////EDIT
+  btnEdt.forEach((btnE) => {
+    btnE.addEventListener("click", (e) => {
+      const current =
+        e.target.parentElement.parentElement.querySelector(".itemEel");
+      current.setAttribute("contenteditable", "true");
+      current.focus();
+      dragItems();
+    });
+  });
+  /////DELETE
+  btnDel.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      currr = e.target.parentElement.parentElement;
+      currr.remove();
+      let ID = currr.getAttribute("data-id");
+
+      console.log(JSON.parse(localStorage.getItem("not")));
+      // removeLocalStorageValues(currr);
+
+      //   dragItems();
+      //   addDataToLocal(notStrTasks, "not");
+      //   addDataToLocal(inProgTasks, "inpro");
+      //   addDataToLocal(completedTasks, "comp");
+    });
+  });
+}
 //////// DELETE TASK /////
 // function deletTask(taskId) {
 //   //   for (let i = 0; i < ary.length; i++) {
@@ -62,77 +118,7 @@ function getDataFromLocal(kyy) {
 //   addDataToLocal(completedTasks, "comp");
 // }
 
-
-
-//////////FUNCTIONS END/////////
-//////////CREATEDELEMENT/////////
-function creatItem(plac, dta) {
-  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}{" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button   onclick="deleteTask('${dta.id}')"  class="material-icons remove-btn">remove_circle</button></div></div>`;
-} 
-//////////CREATEDELEMENT/////////
-
-//////////EVENTS START/////////
-btnNotSt.addEventListener("click", () => {
-  notStrTasks.push(toDo);
-  creatItem(notStartList, toDo);
-  dragItems();
-  delEditBtns();
-  save()
-});
-btnInPro.addEventListener("click", () => {
-  inProgTasks.push(toDo);
-  creatItem(inProgList, toDo);
-  dragItems();
-  delEditBtns();
-
-  save()
-});
-btnCom.addEventListener("click", () => {
-  completedTasks.push(toDo);
-  creatItem(completedtList, toDo);
-  dragItems();
-  delEditBtns();
-save()
-  
-});
-//////////EDITE AND DELETE BUTTONS//////////
-
-function delEditBtns() {
-  const btnDel = document.querySelectorAll(".remove-btn");
-  const btnEdt = document.querySelectorAll(".edit");
-
-  btnEdt.forEach((btnE) => {
-    btnE.addEventListener("click", (e) => {
-      const current =
-        e.target.parentElement.parentElement.querySelector(".itemEel");
-      current.setAttribute("contenteditable", "true");
-      current.focus();
-      dragItems();
-     
-    });
-  });
-
-  btnDel.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      currr = e.target.parentElement.parentElement;
-      currr.remove();
-      let ID = currr.getAttribute("data-id");
-
-        console.log(JSON.parse(localStorage.getItem("not")));
-    removeLocalStorageValues(currr);
-    
-     
-    //   dragItems();
-    //   addDataToLocal(notStrTasks, "not");
-    //   addDataToLocal(inProgTasks, "inpro");
-    //   addDataToLocal(completedTasks, "comp");
-    });
-  });
-}
-
-
 //////////EVENTS END/////////
-
 //////////DRAG&DROP START/////////
 function dragItems() {
   const draggables = document.querySelectorAll(".draggable");
@@ -141,18 +127,16 @@ function dragItems() {
     draggable.addEventListener("dragstart", (e) => {
       draggable.classList.add("dragging");
     });
-
     draggable.addEventListener("dragend", () => {
       draggable.classList.remove("dragging");
       draggable.classList.remove("dragover");
-      save()
+      save();
     });
     draggable.addEventListener("dragleave", () => {
       draggable.classList.remove("dragover");
-      save()
+      save();
     });
   });
-
   containers.forEach((container) => {
     container.addEventListener("dragover", (e) => {
       e.preventDefault();
@@ -204,16 +188,15 @@ function getDragAfterElement(container, y) {
 }
 
 //////////DRAG&DROP END/////////
-getData(notStrTasks, notStartList);
-getData(completedTasks, completedtList);
-getData(inProgTasks, inProgList);
-
+displayData(notStrTasks, notStartList);
+displayData(completedTasks, completedtList);
+displayData(inProgTasks, inProgList);
 
 getDataFromLocal("not");
 getDataFromLocal("inpro");
 getDataFromLocal("comp");
 
-function save(){
+function save() {
   addDataToLocal(notStrTasks, "not");
   addDataToLocal(inProgTasks, "inpro");
   addDataToLocal(completedTasks, "comp");
