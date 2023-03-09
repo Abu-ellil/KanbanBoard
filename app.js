@@ -46,7 +46,7 @@ function getDataFromLocal(kyy) {
 */
 }
 function creatItem(plac, dta) {
-  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}{" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button   onclick="deleteTask('${dta.id}')"  class="material-icons remove-btn">remove_circle</button></div></div>`;
+  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}{" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
 }
 //////////CREATEDELEMENT/////////
 //////////FUNCTIONS END/////////
