@@ -6,7 +6,7 @@
   box-sizing: border-box;
   font-family: "Cairo", sans-serif;
   /* overflow: hidden; */
-  font-size: 25px;
+  /* font-size: 25px; */
    /* transition: all 0.5s; */
 }
 body {
@@ -33,16 +33,16 @@ body {
   display: flex;
   flex-direction: column;
   width: 350px;
-  gap: 20px;
-  padding-bottom: 44px;
+  gap: 10px;
+  padding-bottom: 20px;
 }
 .item {
   background-color: #fff;
-  padding: 10px 12px;
+  padding: 5px 8px;
   border-radius: 5px;
   font-weight: 700;
   color: #000000bd;
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,7 +71,6 @@ body {
   width: 100%;
   background-color: #027e67;
   border-bottom: #fff solid 1px;
-  padding: 10px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
