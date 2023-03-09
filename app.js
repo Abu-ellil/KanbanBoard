@@ -10,7 +10,7 @@ let inProgTasks = JSON.parse(localStorage.getItem("inpro")) || [];
 let completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
 
 let toDo = {
-  id: randNum(),
+  id: Date.now(),
   text: "New Task",
 };
 
@@ -46,7 +46,7 @@ function getDataFromLocal(kyy) {
 */
 }
 function creatItem(plac, dta) {
-  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}{" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
+  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
 }
 //////////CREATEDELEMENT/////////
 //////////FUNCTIONS END/////////
@@ -93,30 +93,36 @@ function delEditBtns() {
       currr = e.target.parentElement.parentElement;
       currr.remove();
       let ID = currr.getAttribute("data-id");
-
       console.log(JSON.parse(localStorage.getItem("not")));
-      // removeLocalStorageValues(currr);
+   notStrTasks = JSON.parse(localStorage.getItem("not"));
+   const containerrs = document.querySelectorAll(".list-container");
 
-      //   dragItems();
-      //   addDataToLocal(notStrTasks, "not");
-      //   addDataToLocal(inProgTasks, "inpro");
-      //   addDataToLocal(completedTasks, "comp");
+      containerrs.forEach((cont)=>{
+        if(cont.classList.contains("notst")){
+          deleteTaskWithnot(e.target.parentElement.parentElement.getAttribute("data-id"));
+        }
+        else if (cont.classList.contains("inpro")) {
+          deleteTaskWithinpr(
+            e.target.parentElement.parentElement.getAttribute("data-id")
+          );
+        }
+        if (cont.classList.contains("com")) {
+          deleteTaskWith(
+            e.target.parentElement.parentElement.getAttribute("data-id")
+          );
+        }
+    
+      })
+
+  //  console.log(e.target.parentElement.parentElement);
+      // if()
+    
+
+
+
     });
   });
 }
-//////// DELETE TASK /////
-// function deletTask(taskId) {
-//   //   for (let i = 0; i < ary.length; i++) {
-//   //     console.log(`${ary[i].id} === ${taskId}`);
-//   //     console.log('delete function');
-//   //   }
-//   notStrTasks = notStrTasks.filter((task) => task.id != taskId);
-//   inProgTasks = inProgTasks.filter((task) => task.id != taskId);
-//   completedTasks = completedTasks.filter((task) => task.id != taskId);
-//   addDataToLocal(notStrTasks, "not");
-//   addDataToLocal(inProgTasks, "inpro");
-//   addDataToLocal(completedTasks, "comp");
-// }
 
 //////////EVENTS END/////////
 //////////DRAG&DROP START/////////
@@ -200,4 +206,20 @@ function save() {
   addDataToLocal(notStrTasks, "not");
   addDataToLocal(inProgTasks, "inpro");
   addDataToLocal(completedTasks, "comp");
+}
+
+
+function deleteTaskWithnot(taskId){
+  notStrTasks = notStrTasks.filter((task) => task.id != taskId);
+  save()
+}
+
+function deleteTaskWithinpr(taskId){
+  inProgTasks = inProgTasks.filter((task) => task.id != taskId);
+  save()
+}
+
+function deleteTaskWith(taskId){
+  completedTasks = completedTasks.filter((task) => task.id != taskId);
+  save()
 }
