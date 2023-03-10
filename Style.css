@@ -84,6 +84,10 @@ button {
   border: none;
   cursor: pointer;
 }
+.itemEel{
+  outline: none;
+  border: none;
+}
 .item:hover,
 .item:focus-within {
   outline: 2px solid #fff;
