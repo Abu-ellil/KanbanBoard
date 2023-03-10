@@ -22,24 +22,19 @@ function displayData(arr, lst) {
     delEditBtns();
   });
 }
+///RESET Local
+const resetBtn = document.querySelector("#reset-btn");
 
-function removeNullFromArray(arr) {
-  return arr.filter(function (item) {
-    return item !== null;
-  });
+resetBtn.addEventListener("click", () => {
+  localStorage.clear();
+  // Reload the page after clearing local storage
+  location.reload();
+});
+//////CREATE RANDOM NUMBER/////
+
+function randNum() {
+  return Math.floor(Math.random() * 100000);
 }
-
-var notWithoutNull = removeNullFromArray(
-  JSON.parse(localStorage.getItem("not"))
-);
-var intWithoutNull = removeNullFromArray(
-  JSON.parse(localStorage.getItem("not"))
-);
-var comtWithoutNull = removeNullFromArray(
-  JSON.parse(localStorage.getItem("not"))
-);
-
-
 ///////ADD DATA TO LOCAL*/////
 function addDataToLocal(Arraay, ky) {
   window.localStorage.setItem(`${ky}`, JSON.stringify(Arraay));
@@ -52,21 +47,16 @@ function getDataFromLocal(kyy) {
   }
 }
 //////////CREATEDELEMENT/////////
-function creatItem(plac, obj) {
-  const newItem = document.createElement("div");
-  newItem.classList.add("draggable", "item");
-  newItem.setAttribute("data-id", `${Date.now()}`);
-  newItem.setAttribute("draggable", "true");
-  newItem.innerHTML = `
-    <div class="itemEel">'New Task'</div>
-    <div class="actions">
-      <button class="material-icons edit">edit</button>
-      <button class="material-icons remove-btn">remove_circle</button>
-    </div>
-  `;
-  plac.appendChild(newItem);
+{
+  /* 
+       <div class="draggable item" draggable="true"><div class="item">CONTENT HERE</div><div class="actions"><button class="material-icons edit">edit</button><button class="material-icons remove-btn">remove_circle</button></div></div>
+*/
 }
-
+function creatItem(plac, dta) {
+  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
+}
+//////////CREATEDELEMENT/////////
+//////////FUNCTIONS END/////////
 //////////EVENTS START/////////
 btnNotSt.addEventListener("click", () => {
   notStrTasks.push(toDo);
@@ -173,11 +163,11 @@ function dragItems() {
         let arr = [];
         const className = container.classList[1];
         if (className === "notst") {
-          arr = notWithoutNull;
+          arr = notStrTasks;
         } else if (className === "inpro") {
-          arr = intWithoutNull;
+          arr = inProgTasks;
         } else if (className === "com") {
-          arr = comtWithoutNull;
+          arr = completedTasks;
         }
 
         const ids = [...container.querySelectorAll(".draggable")].map((d) =>
@@ -221,7 +211,7 @@ function dragItems() {
     container.addEventListener("drop", (e) => {
       e.preventDefault();
       if (e.target.classList.contains("item")) {
-        e.target.classList.remove("dragover");
+        e.target.classList.add("dragover");
       }
       const afterElement = getDragAfterElement(container, e.clientY);
       const draggable = document.querySelector(".dragging");
@@ -254,9 +244,9 @@ function getDragAfterElement(container, y) {
 }
 
 //////////DRAG&DROP END/////////
-displayData(notWithoutNull, notStartList);
-displayData(intWithoutNull, completedtList);
-displayData(comtWithoutNull, inProgList);
+displayData(notStrTasks, notStartList);
+displayData(completedTasks, completedtList);
+displayData(inProgTasks, inProgList);
 
 getDataFromLocal("not");
 getDataFromLocal("inpro");
@@ -282,13 +272,3 @@ function deleteTaskWith(taskId) {
   completedTasks = completedTasks.filter((task) => task.id != taskId);
   save();
 }
-
-
-///RESET Local
-const resetBtn = document.querySelector("#reset-btn");
-
-resetBtn.addEventListener("click", () => {
-  localStorage.clear();
-  // Reload the page after clearing local storage
-  location.reload();
-});
