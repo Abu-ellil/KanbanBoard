@@ -5,13 +5,16 @@ const notStartList = document.querySelector(".notst");
 const inProgList = document.querySelector(".inpro");
 const completedtList = document.querySelector(".com");
 
+
 let notStrTasks = JSON.parse(localStorage.getItem("not")) || [];
 let inProgTasks = JSON.parse(localStorage.getItem("inpro")) || [];
 let completedTasks = JSON.parse(localStorage.getItem("comp")) || [];
 
+let editeEl;
+
 let toDo = {
   id: Date.now(),
-  text: "New Task",
+  text:'text'
 };
 
 // //////////FUNCTIONS START/////////
@@ -23,13 +26,13 @@ function displayData(arr, lst) {
   });
 }
 ///RESET Local
-const resetBtn = document.querySelector("#reset-btn");
+// const resetBtn = document.querySelector("#reset-btn");
 
-resetBtn.addEventListener("click", () => {
-  localStorage.clear();
-  // Reload the page after clearing local storage
-  location.reload();
-});
+// resetBtn.addEventListener("click", () => {
+//   localStorage.clear();
+//   // Reload the page after clearing local storage
+//   location.reload();
+// });
 //////CREATE RANDOM NUMBER/////
 
 function randNum() {
@@ -47,13 +50,9 @@ function getDataFromLocal(kyy) {
   }
 }
 //////////CREATEDELEMENT/////////
-{
-  /* 
-       <div class="draggable item" draggable="true"><div class="item">CONTENT HERE</div><div class="actions"><button class="material-icons edit">edit</button><button class="material-icons remove-btn">remove_circle</button></div></div>
-*/
-}
+
 function creatItem(plac, dta) {
-  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
+  plac.innerHTML += `<div class="draggable item" data-id="${toDo.id}" draggable="true"><div class="itemEel">${toDo.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
 }
 //////////CREATEDELEMENT/////////
 //////////FUNCTIONS END/////////
@@ -81,6 +80,19 @@ btnCom.addEventListener("click", () => {
   save();
 });
 //////////EDITE AND DELETE BUTTONS//////////
+
+function editItem(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  // set edit item
+  editElement = e.currentTarget.parentElement.previousElementSibling;
+  // set form value
+  grocery.value = editElement.innerHTML;
+  editFlag = true;
+  editID = element.dataset.id;
+  //
+  submitBtn.textContent = "edit";
+}
+
 function delEditBtns() {
   const btnDel = document.querySelectorAll(".remove-btn");
   const btnEdt = document.querySelectorAll(".edit");
@@ -88,6 +100,11 @@ function delEditBtns() {
     btnE.addEventListener("click", (e) => {
       const current =
         e.target.parentElement.parentElement.querySelector(".itemEel");
+        editItem;
+
+
+
+
       current.setAttribute("contenteditable", "true");
       current.focus();
       // Save the updated task when pressing enter key
@@ -131,7 +148,7 @@ function delEditBtns() {
           : container.classList.contains("inpro")
           ? inProgTasks
           : completedTasks;
-        const index = arr.findIndex((t) => t.id === Number(taskId));
+        const index = arr.findIndex((t) => t === Number(taskId));
         if (index > -1) {
           arr.splice(index, 1);
           addDataToLocal(notStrTasks, "not");
@@ -157,7 +174,7 @@ function dragItems() {
     draggable.addEventListener("dragend", () => {
       draggable.classList.remove("dragging");
       draggable.classList.remove("dragover");
-
+      location.reload()
       // Update the array based on the new order of the tasks
       containers.forEach((container) => {
         let arr = [];
@@ -173,7 +190,7 @@ function dragItems() {
         const ids = [...container.querySelectorAll(".draggable")].map((d) =>
           Number(d.getAttribute("data-id"))
         );
-        const newOrder = ids.map((id) => arr.find((t) => t.id === id));
+        const newOrder = ids.map((id) => arr.find((t) => t=== id));
 
         // Update the corresponding array with the new order of tasks
         if (className === "notst") {
@@ -186,9 +203,14 @@ function dragItems() {
           completedTasks = newOrder;
           addDataToLocal(completedTasks, "comp");
         }
+        container.addEventListener('dragleave',(e)=>{
+          draggable.classList.remove("dragover");
+        })
       });
 
       // Save the updated order of tasks to local storage
+  
+     filterArray(inProgTasks);
       save();
     });
   });
@@ -257,6 +279,15 @@ function save() {
   addDataToLocal(inProgTasks, "inpro");
   addDataToLocal(completedTasks, "comp");
 }
+
+
+   function filterArray(arrray) {
+     arrray = arrray.filter((arr) => arr !== null);
+     
+   }
+
+
+
 
 function deleteTaskWithnot(taskId) {
   notStrTasks = notStrTasks.filter((task) => task.id != taskId);
