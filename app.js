@@ -69,7 +69,7 @@ btnInPro.addEventListener("click", () => {
   dragItems();
   delEditBtns();
 
-  save();
+  save();    
 });
 btnCom.addEventListener("click", () => {
   completedTasks.push(toDo);
