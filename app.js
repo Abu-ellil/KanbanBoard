@@ -22,19 +22,24 @@ function displayData(arr, lst) {
     delEditBtns();
   });
 }
-///RESET Local
-const resetBtn = document.querySelector("#reset-btn");
 
-resetBtn.addEventListener("click", () => {
-  localStorage.clear();
-  // Reload the page after clearing local storage
-  location.reload();
-});
-//////CREATE RANDOM NUMBER/////
-
-function randNum() {
-  return Math.floor(Math.random() * 100000);
+function removeNullFromArray(arr) {
+  return arr.filter(function (item) {
+    return item !== null;
+  });
 }
+
+var notWithoutNull = removeNullFromArray(
+  JSON.parse(localStorage.getItem("not"))
+);
+var intWithoutNull = removeNullFromArray(
+  JSON.parse(localStorage.getItem("not"))
+);
+var comtWithoutNull = removeNullFromArray(
+  JSON.parse(localStorage.getItem("not"))
+);
+
+
 ///////ADD DATA TO LOCAL*/////
 function addDataToLocal(Arraay, ky) {
   window.localStorage.setItem(`${ky}`, JSON.stringify(Arraay));
@@ -62,11 +67,6 @@ function creatItem(plac, obj) {
   plac.appendChild(newItem);
 }
 
-// function creatItem(plac, dta) {
-//   plac.innerHTML += `<div class="draggable item" data-id="#id" draggable="true"><div class="itemEel">'New Task'</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
-// }
-//////////CREATEDELEMENT/////////
-//////////FUNCTIONS END/////////
 //////////EVENTS START/////////
 btnNotSt.addEventListener("click", () => {
   notStrTasks.push(toDo);
@@ -173,11 +173,11 @@ function dragItems() {
         let arr = [];
         const className = container.classList[1];
         if (className === "notst") {
-          arr = notStrTasks;
+          arr = notWithoutNull;
         } else if (className === "inpro") {
-          arr = inProgTasks;
+          arr = intWithoutNull;
         } else if (className === "com") {
-          arr = completedTasks;
+          arr = comtWithoutNull;
         }
 
         const ids = [...container.querySelectorAll(".draggable")].map((d) =>
@@ -254,9 +254,9 @@ function getDragAfterElement(container, y) {
 }
 
 //////////DRAG&DROP END/////////
-displayData(notStrTasks, notStartList);
-displayData(completedTasks, completedtList);
-displayData(inProgTasks, inProgList);
+displayData(notWithoutNull, notStartList);
+displayData(intWithoutNull, completedtList);
+displayData(comtWithoutNull, inProgList);
 
 getDataFromLocal("not");
 getDataFromLocal("inpro");
@@ -282,3 +282,13 @@ function deleteTaskWith(taskId) {
   completedTasks = completedTasks.filter((task) => task.id != taskId);
   save();
 }
+
+
+///RESET Local
+const resetBtn = document.querySelector("#reset-btn");
+
+resetBtn.addEventListener("click", () => {
+  localStorage.clear();
+  // Reload the page after clearing local storage
+  location.reload();
+});
