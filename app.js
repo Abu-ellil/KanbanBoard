@@ -47,14 +47,24 @@ function getDataFromLocal(kyy) {
   }
 }
 //////////CREATEDELEMENT/////////
-{
-  /* 
-       <div class="draggable item" draggable="true"><div class="item">CONTENT HERE</div><div class="actions"><button class="material-icons edit">edit</button><button class="material-icons remove-btn">remove_circle</button></div></div>
-*/
+function creatItem(plac, obj) {
+  const newItem = document.createElement("div");
+  newItem.classList.add("draggable", "item");
+  newItem.setAttribute("data-id", `${Date.now()}`);
+  newItem.setAttribute("draggable", "true");
+  newItem.innerHTML = `
+    <div class="itemEel">'New Task'</div>
+    <div class="actions">
+      <button class="material-icons edit">edit</button>
+      <button class="material-icons remove-btn">remove_circle</button>
+    </div>
+  `;
+  plac.appendChild(newItem);
 }
-function creatItem(plac, dta) {
-  plac.innerHTML += `<div class="draggable item" data-id="${dta.id}" draggable="true"><div class="itemEel">${dta.text}</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
-}
+
+// function creatItem(plac, dta) {
+//   plac.innerHTML += `<div class="draggable item" data-id="#id" draggable="true"><div class="itemEel">'New Task'</div><div class="actions"><button class="material-icons edit">edit</button><button    class="material-icons remove-btn">remove_circle</button></div></div>`;
+// }
 //////////CREATEDELEMENT/////////
 //////////FUNCTIONS END/////////
 //////////EVENTS START/////////
@@ -211,7 +221,7 @@ function dragItems() {
     container.addEventListener("drop", (e) => {
       e.preventDefault();
       if (e.target.classList.contains("item")) {
-        e.target.classList.add("dragover");
+        e.target.classList.remove("dragover");
       }
       const afterElement = getDragAfterElement(container, e.clientY);
       const draggable = document.querySelector(".dragging");
