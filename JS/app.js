@@ -24,7 +24,7 @@ function renderCards() {
     data[columnId].forEach((card, index) => {
       const cardEl = document.createElement("li");
       cardEl.classList.add("card");
-    
+
       cardEl.addEventListener("dragstart", handleDragStart);
       cardEl.addEventListener("dragover", handleDragOver);
       cardEl.addEventListener("drop", handleDrop);
@@ -78,17 +78,17 @@ addButtons.forEach((button) => {
 document.addEventListener("click", (event) => {
   const { target } = event;
   if (target.classList.contains("edit-card")) {
-    event.preventDefault()
+    event.preventDefault();
     const columnId = target.getAttribute("data-column");
     const index = target.getAttribute("data-index");
     const card = data[columnId][index];
     const newTitle = prompt("Enter a new title for the card:", card.title);
-    
+
     data[columnId][index] = { title: newTitle };
     saveData();
     renderCards();
   } else if (target.classList.contains("delete-card")) {
-    event.preventDefault()
+    event.preventDefault();
     const columnId = target.getAttribute("data-column");
     const index = target.getAttribute("data-index");
     data[columnId].splice(index, 1);
@@ -96,7 +96,6 @@ document.addEventListener("click", (event) => {
     renderCards();
   }
 });
-
 
 //DRG&DRP//
 
@@ -142,9 +141,41 @@ function handleDrop(event) {
 function handleDragEnd(event) {
   this.classList.remove("dragging");
   this.classList.remove("dragover");
-  
 }
 function handleDragLeave(event) {
   this.classList.remove("dragging");
   this.classList.remove("dragover");
+}
+
+container.addEventListener("drop", (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("item")) {
+    e.target.classList.add("dragover");
+  }
+  const afterElement = getDragAfterElement(container, e.clientY);
+  const draggable = document.querySelector(".dragging");
+  if (!afterElement) {
+    container.appendChild(draggable);
+  } else {
+    container.insertBefore(draggable, afterElement);
+  }
+});
+
+function getDragAfterElement(container, y) {
+  const draggableElements = [
+    ...container.querySelectorAll(".draggable:not(.dragging)"),
+  ];
+
+  return draggableElements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.NEGATIVE_INFINITY }
+  ).element;
 }
