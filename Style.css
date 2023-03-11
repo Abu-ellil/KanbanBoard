@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap");
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 88
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -17,126 +26,83 @@ body {
   min-height: 100vh;
   background: #02b38c;
 }
-.main {
+
+.kanban {
   display: flex;
-  gap: 40px;
-}
-.box {
-  transition: all 0.3s;
-}
-.title {
+  width: 85%;
+  justify-content: center;
+  gap: 30px;
   color: #fff;
-  margin-bottom: 1.2rem;
-  font-weight: 500;
-  font-size: 36px;
 }
-.list-container {
-  display: flex;
-  flex-direction: column;
-  width: 350px;
-  gap: 10px;
-  padding-bottom: 20px;
+
+.column {
+  width: 33%;
+  padding: 10px;
 }
-.item {
+
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card {
   background-color: #fff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  font-weight: 700;
-  color: #000000bd;
-  font-size: 16px;
+  color: #000000b2;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  padding:10px;
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  /* box-shadow:0 0 20px #027560; */
-}
-.container {
-  box-shadow: 0 0px 12px #33333370;
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 5px;
 }
 
-.draggable {
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-actions {
   display: flex;
-  background-color: white;
-  cursor: move;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-.draggable.dragging {
-  opacity: 0.5;
+.card-actions button {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+.card-actions button.edit-card{
+ color: #02774a;
+}
+.card-actions button.delete-card {
+color: crimson;
 }
 
-.btn {
-  color: #ffffffb2;
-  font-size: 22px;
-  width: 100%;
+.card-actions button:hover {
+  color: red;
+}
+.add-card{
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   background-color: #027e67;
-  border-bottom: #fff solid 1px;
+  font-size: 18px;
+  color: #fff;
+  width: 100%;
+  border-radius: 4px;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   cursor: pointer;
 }
-
-button {
-  appearance: none;
-  background: none;
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-.itemEel{
-  outline: none;
-  border: none;
-}
-.item:hover,
-.item:focus-within {
-  outline: 2px solid #fff;
-}
-
-.actions button {
-  color: #027560;
-  margin-right: 1rem;
-  opacity: 0.8;
-  transform: 0.1s;
-}
-
-.actions button.remove-btn {
-  color: crimson;
-}
-
-.actions button:hover {
-  opacity: 1;
-}
-
-.actions button:last-of-type {
-  margin-right: 0;
-}
-
-
-
-.task.draggable {
-  opacity: 0.3;
-}
-
-.dragover {
-  
-/* box-shadow: 0px 20px 0px #027560; */
-  
-  /* transform: translateY(-10px); */
- 
-}
-
-/* *********Small Screens******** */
-@media (max-width: 1100px) {
-  .main {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .title {
-    text-align: center;
-  }
-}
-#reset-btn{
-  margin-top: 200px;
+.add-card:hover{
+  background-color: rgb(16, 134, 95);
+  transition: all .3s;
+  transform:scale(1.02)
 }
