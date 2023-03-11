@@ -97,8 +97,7 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// //DRG&DRP//
-
+//DRG&DRP//
 
 let draggedCard = null;
 
@@ -147,33 +146,4 @@ function handleDragEnd(event) {
 function handleDragLeave(event) {
   this.classList.remove("dragging");
   this.classList.remove("dragover");
-}
-
-////////////////////////////
-
-
-
-const containers = document.querySelectorAll(".cards");
-
-for (let j = 0; j < containers.length; j++) {
-  const list = containers[j];
-
-  list.addEventListener("dragover", function (e) {
-    e.preventDefault();
-  });
-
-  list.addEventListener("dragenter", function (e) {
-    e.preventDefault();
-    this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
-  });
-
-  list.addEventListener("dragleave", function (e) {
-    this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-  });
-
-  list.addEventListener("drop", function (e) {
-    console.log("drop");
-    this.append(draggedCard);
-    this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-  });
 }
