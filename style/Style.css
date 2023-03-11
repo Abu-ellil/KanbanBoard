@@ -17,7 +17,7 @@ body {
 
 .kanban {
   display: flex;
-  width: 85%;
+  width: 75%;
   justify-content: center;
   gap: 30px;
   color: #fff;
@@ -45,6 +45,7 @@ body {
   margin-bottom: 10px;
   padding: 5px;
   border: .1px #35343485 solid;
+  cursor: grab;
   transition: all .3s;
 }
 
