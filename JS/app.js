@@ -103,8 +103,10 @@ let draggedCard = null;
 
 function handleDragStart(event) {
   draggedCard = this;
-  event.dataTransfer.setData("text/plain", ""); // required for Firefox
+  event.dataTransfer.setData("text/plain", ""); // this just required for Firefox
   this.classList.add("dragging");
+
+  console.log(this);
 }
 
 function handleDragOver(event) {
@@ -147,19 +149,34 @@ function handleDragLeave(event) {
   this.classList.remove("dragover");
 }
 
+
+
+
+const containers = document.querySelectorAll(".column");
+
+
+
+containers.forEach((container)=>{
+  
 container.addEventListener("drop", (e) => {
   e.preventDefault();
   if (e.target.classList.contains("item")) {
     e.target.classList.add("dragover");
   }
   const afterElement = getDragAfterElement(container, e.clientY);
-  const draggable = document.querySelector(".dragging");
+  const draggedCard = document.querySelector(".dragging");
   if (!afterElement) {
-    container.appendChild(draggable);
+    // container.appendChild(draggedCard);
   } else {
-    container.insertBefore(draggable, afterElement);
+    container.insertBefore(draggedCard, afterElement);
   }
+
+
+
+  console.log('ddddddddd');
 });
+
+
 
 function getDragAfterElement(container, y) {
   const draggableElements = [
@@ -179,3 +196,6 @@ function getDragAfterElement(container, y) {
     { offset: Number.NEGATIVE_INFINITY }
   ).element;
 }
+})
+
+

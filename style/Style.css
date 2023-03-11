@@ -44,6 +44,7 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
   padding: 10px;
+  border: .1px #35343485 solid;
   transition: all .3s;
 }
 
@@ -61,6 +62,7 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  gap: 8px;
 }
 
 .card-actions button {
@@ -104,4 +106,26 @@ body {
 .dragover {
   transform: translateY(-10px);
   box-shadow: 0px 20px 0px #027560;
+}
+
+
+
+@media (max-width: 1100px) {
+  .kanban {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+.column{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  .h2 {
+    text-align: center;
+  }
+  .cards {
+    width: 100%;
+  }
 }
