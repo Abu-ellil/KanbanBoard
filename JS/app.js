@@ -29,6 +29,7 @@ function renderCards() {
       cardEl.addEventListener("dragover", handleDragOver);
       cardEl.addEventListener("drop", handleDrop);
       cardEl.addEventListener("dragend", handleDragEnd);
+      cardEl.addEventListener("dragleave", handleDragLeave);
       cardEl.setAttribute("draggable", true);
       //DRG&DRB//
       cardEl.innerHTML = `
@@ -109,6 +110,7 @@ function handleDragStart(event) {
 
 function handleDragOver(event) {
   event.preventDefault();
+  this.classList.add("dragover");
 }
 
 function handleDrop(event) {
@@ -139,4 +141,10 @@ function handleDrop(event) {
 
 function handleDragEnd(event) {
   this.classList.remove("dragging");
+  this.classList.remove("dragover");
+  
+}
+function handleDragLeave(event) {
+  this.classList.remove("dragging");
+  this.classList.remove("dragover");
 }
