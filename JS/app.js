@@ -126,18 +126,6 @@ function handleDragOver(event) {
 
 function handleDrop(event) {
   event.preventDefault();
-
-  const lists = document.querySelectorAll(".list");
-  lists.forEach((list) => {
-   
-		list.addEventListener("drop", function (e) {
-      console.log("drop");
-      this.append(draggedItem);
-      this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
-    });
-  });
-
-
   const sourceColumnId = draggedCard.parentNode.parentNode.id;
   const targetColumnId = this.parentNode.parentNode.id;
   const sourceIndex = Array.from(draggedCard.parentNode.children).indexOf(draggedCard);
@@ -173,55 +161,3 @@ function handleDragLeave(event) {
 
 /////////////////
 
-// function dragADrop(){
-
-// const boxs = document.querySelectorAll(".cards");
-// const items = document.querySelectorAll(".card");
-// // let draggedItem = null;
-// for (let i = 0; i < items.length; i++) {
-//   const item = items[i];
-
-//   item.addEventListener("dragstart", function () {
-//     draggedItem = item;
-//     setTimeout(function () {
-//       item.style.display = "none";
-//     }, 0);
-//     saveData();
-//   });
-
-//   item.addEventListener("dragend", function () {
-//     setTimeout(function () {
-//       draggedItem.style.display = "block";
-//       // draggedItem = null;
-//        saveData();
-//     }, 0);
-//   });
-
-//   for (let j = 0; j < boxs.length; j++) {
-//     const list = boxs[j];
-
-//     list.addEventListener("dragover", function (e) {
-//       e.preventDefault();
-//       saveData();
-//     });
-
-//     list.addEventListener("dragenter", function (e) {
-//       e.preventDefault();
-//       this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
-//       saveData();
-//     });
-
-//     list.addEventListener("dragleave", function (e) {
-//       this.style.backgroundColor = "rgba(0, 0, 0, 0)";
-//     });
-
-//     list.addEventListener("drop", function (e) {
-//       console.log("drop");
-//       this.append(draggedItem);
-//       this.style.backgroundColor = "rgba(0, 0, 0, 0)";
-//        saveData();
-//     });
-//   }
-// }
-
-// }
