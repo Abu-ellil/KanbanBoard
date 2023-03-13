@@ -102,26 +102,45 @@ document.addEventListener("click", (event) => {
 
 let draggedCard = null;
 
-const allLists = document.querySelectorAll(".cards");
-
 function handleDragStart(event) {
   draggedCard = this;
   event.dataTransfer.setData("text/plain", ""); // this just required for Firefox
   this.classList.add("dragging");
+  
+  event.target.parentNode.addEventListener("dragover", function (e) {
+    e.preventDefault();
+  });
 }
 
 function handleDragOver(event) {
+  const lists = document.querySelectorAll(".list");
+ lists.forEach((list)=>{
+  list.addEventListener("dragenter", function (e) {
+    e.preventDefault();
+    this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+  });
+ })
   event.preventDefault();
   this.classList.add("dragover");
 }
 
 function handleDrop(event) {
   event.preventDefault();
+
+  const lists = document.querySelectorAll(".list");
+  lists.forEach((list) => {
+   
+		list.addEventListener("drop", function (e) {
+      console.log("drop");
+      this.append(draggedItem);
+      this.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+    });
+  });
+
+
   const sourceColumnId = draggedCard.parentNode.parentNode.id;
   const targetColumnId = this.parentNode.parentNode.id;
-  const sourceIndex = Array.from(draggedCard.parentNode.children).indexOf(
-    draggedCard
-  );
+  const sourceIndex = Array.from(draggedCard.parentNode.children).indexOf(draggedCard);
   const targetIndex = Array.from(this.parentNode.children).indexOf(this);
   if (sourceColumnId === targetColumnId) {
     data[sourceColumnId].splice(
