@@ -24,7 +24,7 @@ function renderCards() {
     data[columnId].forEach((card, index) => {
       const cardEl = document.createElement("li");
       cardEl.classList.add("card");
-// dragADrop();
+      // dragADrop();
       cardEl.addEventListener("dragstart", handleDragStart);
       cardEl.addEventListener("dragover", handleDragOver);
       cardEl.addEventListener("drop", handleDrop);
@@ -66,8 +66,6 @@ window.addEventListener("load", () => {
 
 // Add event listeners to the add buttons
 addButtons.forEach((button) => {
- 
- 
   const columnId = button.getAttribute("data-column");
   button.addEventListener("click", () => {
     // const title = prompt("Enter a title for the new card:");
@@ -157,8 +155,6 @@ function handleDragLeave(event) {
 /////////////////
 
 // function dragADrop(){
-
-
 
 // const boxs = document.querySelectorAll(".cards");
 // const items = document.querySelectorAll(".card");
