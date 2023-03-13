@@ -24,7 +24,7 @@ function renderCards() {
     data[columnId].forEach((card, index) => {
       const cardEl = document.createElement("li");
       cardEl.classList.add("card");
-
+// dragADrop();
       cardEl.addEventListener("dragstart", handleDragStart);
       cardEl.addEventListener("dragover", handleDragOver);
       cardEl.addEventListener("drop", handleDrop);
@@ -66,9 +66,12 @@ window.addEventListener("load", () => {
 
 // Add event listeners to the add buttons
 addButtons.forEach((button) => {
+ 
+ 
   const columnId = button.getAttribute("data-column");
   button.addEventListener("click", () => {
-    const title = prompt("Enter a title for the new card:");
+    // const title = prompt("Enter a title for the new card:");
+    const title = "Enter a New Task Here!";
     const card = { title };
     addCard(columnId, card);
   });
@@ -100,6 +103,8 @@ document.addEventListener("click", (event) => {
 //DRG&DRP//
 
 let draggedCard = null;
+
+const allLists = document.querySelectorAll(".cards");
 
 function handleDragStart(event) {
   draggedCard = this;
@@ -134,6 +139,7 @@ function handleDrop(event) {
     );
     data[sourceColumnId].splice(sourceIndex, 1);
   }
+
   saveData();
   renderCards();
 }
@@ -148,7 +154,59 @@ function handleDragLeave(event) {
   this.classList.remove("dragover");
 }
 
-
-
-
 /////////////////
+
+// function dragADrop(){
+
+
+
+// const boxs = document.querySelectorAll(".cards");
+// const items = document.querySelectorAll(".card");
+// // let draggedItem = null;
+// for (let i = 0; i < items.length; i++) {
+//   const item = items[i];
+
+//   item.addEventListener("dragstart", function () {
+//     draggedItem = item;
+//     setTimeout(function () {
+//       item.style.display = "none";
+//     }, 0);
+//     saveData();
+//   });
+
+//   item.addEventListener("dragend", function () {
+//     setTimeout(function () {
+//       draggedItem.style.display = "block";
+//       // draggedItem = null;
+//        saveData();
+//     }, 0);
+//   });
+
+//   for (let j = 0; j < boxs.length; j++) {
+//     const list = boxs[j];
+
+//     list.addEventListener("dragover", function (e) {
+//       e.preventDefault();
+//       saveData();
+//     });
+
+//     list.addEventListener("dragenter", function (e) {
+//       e.preventDefault();
+//       this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+//       saveData();
+//     });
+
+//     list.addEventListener("dragleave", function (e) {
+//       this.style.backgroundColor = "rgba(0, 0, 0, 0)";
+//     });
+
+//     list.addEventListener("drop", function (e) {
+//       console.log("drop");
+//       this.append(draggedItem);
+//       this.style.backgroundColor = "rgba(0, 0, 0, 0)";
+//        saveData();
+//     });
+//   }
+// }
+
+// }
