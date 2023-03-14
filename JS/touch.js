@@ -51,7 +51,7 @@ taskLists.forEach((task) => {
     event.target.closest(".column").classList.remove("dragover");
 
     // Move the dragged item to the target section's task list
-    targetSection.querySelector(".task-list").appendChild(dragging);
+    targetSection.querySelector(".cards").appendChild(dragging);
 
     // Return to normal styles
     sections.forEach((section) => section.classList.remove("dragover"));
@@ -60,7 +60,7 @@ taskLists.forEach((task) => {
     dragging = null;
 
     saveData();
-    renderCards();
+    // renderCards();
   });
 });
 
@@ -150,7 +150,7 @@ function handleTouchMove(event) {
 
   currentLi.style.transform = `translateY(${diff}px)`;
 
-  const ul = currentLi.closest(".task-list");
+  const ul = currentLi.closest(".cards");
   const liArray = [...ul.querySelectorAll(".task")];
 
   for (const li of liArray) {
@@ -175,7 +175,7 @@ function handleTouchEnd() {
 
   currentLi.style.transform = "";
 
-  const ul = currentLi.closest(".task-list");
+  const ul = currentLi.closest(".cards");
   const liArray = [...ul.querySelectorAll(".task")];
   const newIndex = liArray.indexOf(currentLi);
 
