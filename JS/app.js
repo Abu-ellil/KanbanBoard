@@ -106,7 +106,7 @@ function handleDragStart(event) {
   draggedCard = this;
   event.dataTransfer.setData("text/plain", ""); // this just required for Firefox
   this.classList.add("dragging");
-  
+
   event.target.parentNode.addEventListener("dragover", function (e) {
     e.preventDefault();
   });
@@ -114,12 +114,12 @@ function handleDragStart(event) {
 
 function handleDragOver(event) {
   const lists = document.querySelectorAll(".list");
- lists.forEach((list)=>{
-  list.addEventListener("dragenter", function (e) {
-    e.preventDefault();
-    this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+  lists.forEach((list) => {
+    list.addEventListener("dragenter", function (e) {
+      e.preventDefault();
+      this.style.backgroundColor = "rgba(0, 0, 0, 0.2)";
+    });
   });
- })
   event.preventDefault();
   this.classList.add("dragover");
 }
@@ -128,7 +128,9 @@ function handleDrop(event) {
   event.preventDefault();
   const sourceColumnId = draggedCard.parentNode.parentNode.id;
   const targetColumnId = this.parentNode.parentNode.id;
-  const sourceIndex = Array.from(draggedCard.parentNode.children).indexOf(draggedCard);
+  const sourceIndex = Array.from(draggedCard.parentNode.children).indexOf(
+    draggedCard
+  );
   const targetIndex = Array.from(this.parentNode.children).indexOf(this);
   if (sourceColumnId === targetColumnId) {
     data[sourceColumnId].splice(
@@ -160,4 +162,3 @@ function handleDragLeave(event) {
 }
 
 /////////////////
-
