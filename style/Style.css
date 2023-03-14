@@ -26,6 +26,7 @@ h1{
   gap: 30px;
   color: #fff;
   justify-content: space-between;
+  height: 100%;
 }
 
 .column {
@@ -151,3 +152,4 @@ font-size: 20px;
     width: 100%;
   }
 }
+
