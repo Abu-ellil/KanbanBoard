@@ -1,3 +1,5 @@
+const year = document.querySelector('.year')
+year.innerHTML = new Date().getFullYear();
 // Data model for the cards
 const data = {
   todo: [],
@@ -162,3 +164,9 @@ function handleDragLeave(event) {
 }
 
 /////////////////
+// screen touch
+
+
+document.addEventListener('touchstart',e=>{console.log('start');})
+document.addEventListener('touchmove',e=>{console.log('move');})
+document.addEventListener('touchend',e=>{console.log('end');})

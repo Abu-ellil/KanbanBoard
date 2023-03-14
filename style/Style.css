@@ -25,6 +25,7 @@ h1{
   justify-content: center;
   gap: 30px;
   color: #fff;
+  justify-content: space-between;
 }
 
 .column {
@@ -40,7 +41,6 @@ h1{
   flex-direction: column;
   list-style: none;
   width: 100%;
-  padding: 10px;
   height: 100%;
 }
 
@@ -116,8 +116,24 @@ h1{
   background-color: rgba(0, 0, 0, 0.2);
   /* height: 200px; */
 }
-
-@media (max-width: 900px) {
+.footer{
+  padding-top: 100px;
+  bottom: 10px;
+   color: #0000005e;
+}
+.footer .nam{
+  color: #333333a6;
+font-size: 20px;
+font-weight: 700;
+text-decoration: none;
+}
+.name a{
+  
+}
+.footer .year{
+font-size: 20px;
+}
+@media (max-width: 1050px) {
   .kanban {
     width: 100%;
     flex-direction: column;
