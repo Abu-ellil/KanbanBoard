@@ -26,7 +26,8 @@ If you find any issues with this project or would like to suggest improvements, 
 
 This project is licensed under the MIT License - see the `LICENSE` file for details.
 ##ScreenShots
-![Screenshot 2023-03-14 231202](https://user-images.githubusercontent.com/94858304/225155461-cd315fdc-4720-4722-8c08-f437fdc6cc83.png)
 ![Screenshot 2023-03-14 231226](https://user-images.githubusercontent.com/94858304/225155448-6f61fe0b-7a9f-42de-9f07-40a0f02fa750.png)
+mobile version
+![Screenshot 2023-03-14 231202](https://user-images.githubusercontent.com/94858304/225155461-cd315fdc-4720-4722-8c08-f437fdc6cc83.png)
 
 
