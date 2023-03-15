@@ -3,7 +3,7 @@
 This is a Kanban board project built using JavaScript, HTML, and CSS. The Kanban board is a tool for visualizing tasks and workflow, and my implementation allows users to easily add, edit, and move tasks between columns.
 
 ## Features
-
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/94858304/225364274-6d383146-5933-4770-8a75-f2f62c9b0724.gif)
 - Add new tasks to the board
 - Edit existing tasks
 - Drag and drop tasks between columns
