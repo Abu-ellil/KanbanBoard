@@ -5,38 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="KanBan.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="KanBan.ico" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-     <link rel="stylesheet" href="style/Style.css" />
+    <link rel="stylesheet" href="style/Style.css" />
     <title>kanban_Board</title>
   </head>
   <body>
     <header>
-				<h1>Bonyan Board</h1>
-			</header>
+      <h1>Bonyan Board</h1>
+      <div class="voic">
+      <button class="mic"><i class="fa-solid fa-microphone"></i></button>
+      <p>عن طريق الصوت</p></div>
+    </header>
+
+<div class="form-fo"id="form-fo"></div>
+<div class="form" id="form" >
+  
+         <h1>Voice to Text</h1>
+  <p>اضغط الزرار لبدء الكتابة</p>
+  <button id="start-btn">ابدأ</button>
+  <p id="transcript"></p>
+<div class="vo-btns"><button class="st">No Start</button><button class="in">In Prog</button><button class="finish">Compl</button></div>
+</div>
+
+
     <div class="kanban">
-      
       <div class="column" id="todo">
         <h2>Not Started</h2>
         <ul class="cards"></ul>
-        <button class="add-card material-icons " data-column="todo">add</button>
+        <button class="add-card material-icons" data-column="todo">add</button>
       </div>
       <div class="column" id="in-progress">
         <h2>In Progress</h2>
         <ul class="cards"></ul>
-        <button class="add-card material-icons add" data-column="in-progress">add </button>
+        <button class="add-card material-icons add" data-column="in-progress">
+          add
+        </button>
       </div>
       <div class="column" id="done">
         <h2>Completed</h2>
         <ul class="cards"></ul>
-        <button class="add-card material-icons add" data-column="done">add</button>
+        <button class="add-card material-icons add" data-column="done">
+          add
+        </button>
       </div>
     </div>
 
-<div class="footer"><p>Created By ❤️ <span > <a class="nam" href="https://github.com/Abu-ellil/KanbanBoard">Mahmoud AbuEllil</a> </span> <span class="year">2020</span></p></div>
+    <div class="footer">
+      <p>
+        Created By ❤️
+        <span>
+          <a class="nam" href="https://github.com/Abu-ellil/KanbanBoard"
+            >Mahmoud AbuEllil</a
+          >
+        </span>
+        <span class="year">2020</span>
+      </p>
+    </div>
     <!-- <script src="JS/dNd.js"></script> -->
     <script src="JS/app.js"></script>
     <script src="JS/touch.js"></script>

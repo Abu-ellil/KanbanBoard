@@ -57,6 +57,7 @@ function saveData() {
 // Add a new card to the data model and render it
 function addCard(columnId, card) {
   data[columnId].push(card);
+  console.log(columnId);
   saveData();
   renderCards();
 }
@@ -164,71 +165,102 @@ function handleDragLeave(event) {
 }
 
 /////////////////
-// screen touch
+// Add With voice
+const form = document.getElementById('form')
+const formfo = document.getElementById("form-fo");
+// const startBtn = document.getElementById("start-btn");
+const formNot = document.querySelector(".st");
+const formProg = document.querySelector('.in')
+const formCom = document.querySelector(".finish");
+const mic = document.querySelector('.mic')
 
-// // let el, bx;
-// document.addEventListener("touchstart", dragStart);
+mic.addEventListener('click',()=>{
+  form.classList.add('show')
+  formfo.classList.add('show')
+})
+
+window.addEventListener("click", (e) =>
+  e.target == formfo ? formfo.classList.remove("show") : false
+);
+window.addEventListener("click", (e) =>
+  e.target == formfo ? form.classList.remove("show") : false
+);
 
 
-// document.addEventListener("touchmove", drag);
-// document.addEventListener("touchend", drop);
+    // Get the paragraph element that will display the transcript
+    const transcriptEl = document.getElementById('transcript');
+
+    // Check if the user's browser supports the Web Speech API
+    if ('webkitSpeechRecognition' in window) {
+      // Create a new speech recognition object
+      let recognition = new webkitSpeechRecognition();
+
+      // Set the properties of the recognition object
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      // recognition.lang = 'en-US';
+      recognition.lang = 'ar-EG';
+
+      // Add an event listener for the 'result' event
+      recognition.onresult = function(event) {
+        // Get the latest result from the recognition object
+        let latestResult = event.results[event.results.length - 1];
+
+        // Get the latest transcript from the result
+        let latestTranscript = latestResult[0].transcript;
+
+        // Set the text of the paragraph element to the latest transcript
+        transcriptEl.textContent = latestTranscript;
 
 
-//   var dropbox = document.querySelector("#done");
-  
-  
+
+
+
+      }
+
+      // Add an event listener for the 'end' event
+      recognition.onend = function() {
+        // Start the speech recognition process again
+        // recognition.start();
+      }
+
+      // Add an event listener for the 'click' event of the start button
+      var startBtn = document.getElementById('start-btn');
+      startBtn.addEventListener('click', function() {
+        // Start the speech recognition process
+        recognition.start();
+
+        setTimeout(function () {
+          recognition.stop();
+
+        }, 5000);
+      });
+    } else {
+      // If the user's browser does not support the Web Speech API, display an error message
+      transcriptEl.textContent = 'Sorry, your browser does not support the Web Speech API.';
+    }
+
+
+    formNot.addEventListener("click", () => {
+      const title = transcriptEl.textContent;
+      const card = { title };
+      addCard("todo", card);
       
-//   var drg , drgT , drgL , drgB , drgR ;
-  
-//   var el , avail ;
-
-//   function dragStart(evt){
-//       el = evt.target ;
-//       if(el.getAttribute('draggable') == 'true'){
-//           avail = 'available';
-//       } else {
-//           avail = '';
-//       }
-//   }
-  
-//   function drag(evt){
-//       if(avail == 'available'){
-//           el.style.position="absolute";
-//           el.style.left=evt.touches[0].clientX-el.clientWidth/2;
-//            el.style.top=evt.touches[0].clientY-el.clientHeight/2;
-           
-//            drg = el.getBoundingClientRect();
-//            drgT = drg.top ;
-//            drgB = drg.bottom ;
-//            drgL = drg.left ;
-//            drgR = drg.right ;
-//       } else {}
-//       evt.preventDefault();
-//   }
-  
-//   function drop(){
+        formfo.classList.remove("show")
+        form.classList.remove("show")
       
-//       // update on drop
-
-//       var drp = dropbox.getBoundingClientRect();
-  
-//   var drpT = drp.top ,
-//       drpL = drp.left ,
-//       drpB = drp.bottom ,
-//       drpR = drp.right ;
-
-
-//       if(avail == 'available'){
-//           if(drpT < drgT &&
-//              drpL < drgL &&
-//              drpB > drgB &&
-//              drpR > drgR){
-//                  dropbox.appendChild(el);
-               
-//                  el.style.position='';
-//                  el.setAttribute('draggable','false');
-//              }
-//       } else {}
-      
-//   }
-
+    });
+    formProg.addEventListener("click", () => {
+      const title = transcriptEl.textContent;
+      const card = { title };
+      addCard("in-progress", card);
+       formfo.classList.remove("show");
+       form.classList.remove("show");
+    });
+    formCom.addEventListener("click", () => {
+      const title = transcriptEl.textContent;
+      const card = { title };
+      addCard("done", card);
+     formfo.classList.remove("show");
+     form.classList.remove("show");
+    });

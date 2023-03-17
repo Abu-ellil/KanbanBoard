@@ -17,7 +17,8 @@ body {
 h1{
   color: #fff;
   font-size: 48px;
-  padding-bottom: 150px;
+  padding-bottom: 60px;
+  position: relative;
 }
 .kanban {
   display: flex;
@@ -148,12 +149,86 @@ font-size: 20px;
 font-weight: 700;
 text-decoration: none;
 }
-.name a{
-  
+
+/* ................. */
+.voic{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 120px;
+  color: #024c3f;
+}
+.mic{
+  background: transparent;
+  border: none;
+  color: #02774a;
+ font-size: 63px;
+padding-bottom: 10px;
 }
 .footer .year{
 font-size: 20px;
 }
+
+
+
+.form{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  height: 450px;
+  background-color: #02774a;
+  border-radius: 10px;
+  color: #fff;
+  display: none;
+}
+.form-fo{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  /* z-index: 11; */
+  background-color: rgba(0, 0, 0, 0.748);
+  display: none;
+}
+.form h1{
+  padding: 0 ;
+}
+.form button{
+  padding: 10px 60px;
+  border-radius: 10px;
+  font-size: 25px;
+  color: #fc0101;
+}
+#transcript{
+  padding: 10px;
+}
+.vo-btns{
+  display: flex;
+  gap: 8px;
+}
+.vo-btns button{
+  padding: 10px 10px;
+}
+.vo-btns button:nth-child(1){
+  color: #e44004;
+}
+.vo-btns button:nth-child(2){
+  color: #02774a;
+}
+.vo-btns button:nth-child(3){
+  color: #1f06fb;
+}
+.show{
+  display: flex;
+}
+
+
+
+
 @media (max-width: 1050px) {
   .kanban {
     width: 100%;
