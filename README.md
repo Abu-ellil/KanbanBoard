@@ -1,6 +1,9 @@
 # Kanban Board JavaScript Project
 
 This is a Kanban board project built using JavaScript, HTML, and CSS. The Kanban board is a tool for visualizing tasks and workflow, and my implementation allows users to easily add, edit, and move tasks between columns.
+##UPDATE 
+You can now add tasks by your voice.
+![Screenshot 2023-03-17 063024](https://user-images.githubusercontent.com/94858304/226204183-363477e5-a494-4c6c-a8b4-d65de24173b5.png)
 
 ## Features
 ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/94858304/225364274-6d383146-5933-4770-8a75-f2f62c9b0724.gif)
